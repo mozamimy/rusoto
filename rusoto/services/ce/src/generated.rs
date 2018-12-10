@@ -90,7 +90,7 @@ pub struct DateInterval {
 }
 
 /// <p>The metadata that you can use to filter and group your results. You can use <code>GetDimensionValues</code> to find specific values.</p>
-#[derive(Default, Debug, Clone, PartialEq, Serialize)]
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct DimensionValues {
     /// <p>The names of the metadata types that you can use to filter and group your results. For example, <code>AZ</code> returns a list of Availability Zones.</p>
     #[serde(rename = "Key")]
@@ -104,7 +104,7 @@ pub struct DimensionValues {
 
 /// <p>The metadata of a specific type that you can use to filter and group your results. You can use <code>GetDimensionValues</code> to find specific values.</p>
 #[derive(Default, Debug, Clone, PartialEq, Deserialize)]
-#[cfg_attr(test, derive(Serialize))]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct DimensionValuesWithAttributes {
     /// <p>The attribute that applies to a specific <code>Dimension</code>.</p>
     #[serde(rename = "Attributes")]
@@ -220,7 +220,7 @@ pub struct ElastiCacheInstanceDetails {
 }
 
 /// <p><p>Use <code>Expression</code> to filter by cost or by usage. There are two patterns: </p> <ul> <li> <p>Simple dimension values - You can set the dimension name and values for the filters that you plan to use. For example, you can filter for <code>INSTANCE<em>TYPE==m4.xlarge OR INSTANCE</em>TYPE==c4.large</code>. The <code>Expression</code> for that looks like this:</p> <p> <code>{ &quot;Dimensions&quot;: { &quot;Key&quot;: &quot;INSTANCE<em>TYPE&quot;, &quot;Values&quot;: [ &quot;m4.xlarge&quot;, “c4.large” ] } }</code> </p> <p>The list of dimension values are OR&#39;d together to retrieve cost or usage data. You can create <code>Expression</code> and <code>DimensionValues</code> objects using either <code>with<em></code> methods or <code>set</em></code> methods in multiple lines. </p> </li> <li> <p>Compound dimension values with logical operations - You can use multiple <code>Expression</code> types and the logical operators <code>AND/OR/NOT</code> to create a list of one or more <code>Expression</code> objects. This allows you to filter on more advanced options. For example, you can filter on <code>((INSTANCE</em>TYPE == m4.large OR INSTANCE<em>TYPE == m3.large) OR (TAG.Type == Type1)) AND (USAGE</em>TYPE != DataTransfer)</code>. The <code>Expression</code> for that looks like this:</p> <p> <code>{ &quot;And&quot;: [ {&quot;Or&quot;: [ {&quot;Dimensions&quot;: { &quot;Key&quot;: &quot;INSTANCE<em>TYPE&quot;, &quot;Values&quot;: [ &quot;m4.x.large&quot;, &quot;c4.large&quot; ] }}, {&quot;Tags&quot;: { &quot;Key&quot;: &quot;TagName&quot;, &quot;Values&quot;: [&quot;Value1&quot;] } } ]}, {&quot;Not&quot;: {&quot;Dimensions&quot;: { &quot;Key&quot;: &quot;USAGE</em>TYPE&quot;, &quot;Values&quot;: [&quot;DataTransfer&quot;] }}} ] } </code> </p> <note> <p>Because each <code>Expression</code> can have only one operator, the service returns an error if more than one is specified. The following example shows an <code>Expression</code> object that creates an error.</p> </note> <p> <code> { &quot;And&quot;: [ ... ], &quot;DimensionValues&quot;: { &quot;Dimension&quot;: &quot;USAGE_TYPE&quot;, &quot;Values&quot;: [ &quot;DataTransfer&quot; ] } } </code> </p> </li> </ul></p>
-#[derive(Default, Debug, Clone, PartialEq, Serialize)]
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Expression {
     /// <p>Return results that match both <code>Dimension</code> objects.</p>
     #[serde(rename = "And")]
@@ -894,7 +894,7 @@ pub struct ServiceSpecification {
 }
 
 /// <p>The values that are available for a tag.</p>
-#[derive(Default, Debug, Clone, PartialEq, Serialize)]
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TagValues {
     /// <p>The key for a tag.</p>
     #[serde(rename = "Key")]
